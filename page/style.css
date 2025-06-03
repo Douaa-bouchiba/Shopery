@@ -885,38 +885,27 @@ text-decoration: line-through;
 .banner-text {
     position: absolute;
     top: 50%;
-    left: 50px;
-    transform: translateY(-50%);
-    color: rgba(255, 255, 255, 1);
-    z-index: 2;
-}
-
-.first-banner .banner-text {
-    left: 50px;
-}
-
-.second-banner .banner-text {
-    right: 50px;
-    left: auto;
-    text-align: right;
-}
-
-.third-banner .banner-text {
     left: 50%;
     transform: translate(-50%, -50%);
+    color: rgba(255, 255, 255, 1);
+    z-index: 2;
+    width: 100%;
     text-align: center;
+    padding: 0 20px;
 }
 
 .banner-text h1 {
     font-size: 32px;
     font-weight: 600;
     margin-bottom: 15px;
+    text-align: center;
 }
 
 .banner-text h4 {
     font-size: 16px;
     line-height: 1.5;
     margin-bottom: 20px;
+    text-align: center;
 }
 
 .banner-text a {
@@ -952,9 +941,5 @@ text-decoration: line-through;
 .third-banner .banner-text .shop-now {
     color: rgba(0, 178, 7, 1) !important;
     background-color: #ffffff !important;
+    
 }
-
-.banner-text h1{
-
-}
-

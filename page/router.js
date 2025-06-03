@@ -151,3 +151,47 @@ function handleDynamicContent() {
     updateCartDisplay();
 }
 
+//setting the countdown timer for the first banner 
+let threeDaysInMs = 3 * 24 * 60 * 60 * 1000;
+const endTime = new Date().getTime() + threeDaysInMs;
+
+
+let timeInterval;
+
+function countdownTimer() {
+    const now = new Date().getTime();
+    const distance = endTime - now;
+    
+    
+    
+    if (distance < 0) {
+        clearInterval(timeInterval);
+    
+        document.getElementById('day').textContent = "00";
+        document.getElementById('hour').textContent = "00";
+        document.getElementById('minute').textContent = "00";
+        document.getElementById('second').textContent = "00";
+   
+        const countdownContainer = document.getElementById("countdown-timer");
+        if (countdownContainer) {
+            countdownContainer.innerHTML = "<h2>TIMER EXPIRED!</h2>";
+            return;
+    }
+   
+}
+
+
+const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+const hours = Math.floor((distance % (1000* 60 * 60 * 24)) / (1000 * 60 * 60));
+const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+document.getElementById('day').textContent = days < 10 ? "0" + days : days;
+document.getElementById('hour').textContent = hours < 10 ? "0" + hours : hours;
+document.getElementById('minute').textContent = minutes < 10 ? "0" + minutes : minutes;
+document.getElementById('second').textContent = seconds < 10 ? "0" + seconds : seconds;
+
+}
+
+countdownTimer();
+const timerInterval = setInterval(countdownTimer, 1000);
