@@ -862,9 +862,11 @@ text-decoration: line-through;
     padding-top: 510px;
     margin-top: 50px;
     margin-bottom: 20px;
-    width: 100%;
     margin: 0 auto;
+    width: 100%;
     max-width: 1200px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .all-banners svg {
@@ -880,20 +882,36 @@ text-decoration: line-through;
 .all-banners .second-banner,
 .all-banners .third-banner {
     position: relative;
+    min-width: 300px;
 }
 
 .banner-text {
     position: absolute;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    left: 85%;
+    transform: translate(-80%, -80%);
     color: rgba(255, 255, 255, 1);
     z-index: 2;
     width: 100%;
     text-align: center;
     padding: 0 20px;
 }
+ 
+@media (max-width: 1024px) {
+    .all-banners {
+        flex-direction: column; /* Stack banners vertically */
+        gap: 40px; /* More space between stacked banners */
+        padding-top: 100px; /* Adjust padding if needed */
+        margin-top: 20px;
+    }
 
+    /* Revert banner text position if desired for a different look on tablets */
+    .banner-text {
+        left: 50%; /* Keep horizontally centered */
+        transform: translate(-50%, -50%);
+        padding: 0 15px; /* Adjust padding */
+    }
+}
 .banner-text h1 {
     font-size: 32px;
     font-weight: 600;
@@ -942,4 +960,15 @@ text-decoration: line-through;
     color: rgba(0, 178, 7, 1) !important;
     background-color: #ffffff !important;
     
+}
+.countdown-timer {
+  color: rgba(255, 255, 255, 1);
+  flex-wrap: wrap;
+  justify-content: center;
+  font-family: "Poppins";
+font-weight: 400;
+font-size: 24px;
+line-height: 150%;
+letter-spacing: 0%;
+text-align: center;
 }
