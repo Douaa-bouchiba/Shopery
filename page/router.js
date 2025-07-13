@@ -30,6 +30,8 @@ const handleLocation = async () => {
         container.innerHTML = html;   
         // Reinitialize star ratings after content load
         initializeStarRatings();
+        // Reinitialize banner filters after content load
+        // initializeBannerFilters(); // REMOVED
     }catch (error) {
         console.error("Error loading page:", error);
         if (routes[404]) {
@@ -149,6 +151,8 @@ function handleDynamicContent() {
     // Re-initialize cart functionality after content changes
     initializeStarRatings();
     updateCartDisplay();
+    // Re-initialize banner filters
+    // initializeBannerFilters(); // REMOVED
 }
 
 //setting the countdown timer for the first banner 
@@ -195,3 +199,158 @@ document.getElementById('second').textContent = seconds < 10 ? "0" + seconds : s
 
 countdownTimer();
 const timerInterval = setInterval(countdownTimer, 1000);
+
+// banner's button functionality //
+document.addEventListener('DOMContentLoaded', function() {
+            const statusMessage = document.getElementById('status-message');
+            
+            // Update status message
+            statusMessage.textContent = "Document loaded. Ready for interaction!";
+            
+            // Get all necessary elements
+            const shopButtons = document.querySelectorAll('.shop-now');
+            const filterPage = document.getElementById('filterPage');
+            const overlay = document.getElementById('overlay');
+            const closeFilter = document.getElementById('closeFilter');
+            const filterTitle = document.getElementById('filterTitle');
+            const filterOptions = document.getElementById('filterOptions');
+            
+            // Define filter options for each banner
+            const filterData = {
+                'low-fat-meat': [
+                    { icon: 'fa-drumstick-bite', text: 'Chicken' },
+                    { icon: 'fa-cow', text: 'Beef' },
+                    { icon: 'fa-piggy-bank', text: 'Pork' },
+                    { icon: 'fa-turkey', text: 'Turkey' }
+                ],
+                'sale-of-the-month': [
+                    { icon: 'fa-fire', text: 'Hot Deals' },
+                    { icon: 'fa-percent', text: 'Discounted' },
+                    { icon: 'fa-star', text: 'Top Rated' },
+                    { icon: 'fa-bolt', text: 'Limited Stock' }
+                ],
+                'fresh-fruit': [
+                    { icon: 'fa-apple-alt', text: 'Apples' },
+                    { icon: 'fa-lemon', text: 'Citrus' },
+                    { icon: 'fa-seedling', text: 'Berries' },
+                    { icon: 'fa-pagelines', text: 'Tropical' }
+                ]
+            };
+            
+            // Add click event to each shop button
+            shopButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const filterType = this.getAttribute('data-filter');
+                    statusMessage.textContent = `Opening filter for: ${filterType.replace(/-/g, ' ')}`;
+                    showFilterPage(filterType);
+                });
+            });
+            
+            // Close filter events
+            closeFilter.addEventListener('click', function() {
+                hideFilterPage();
+                statusMessage.textContent = "Filter closed successfully";
+            });
+            
+            overlay.addEventListener('click', function() {
+                hideFilterPage();
+                statusMessage.textContent = "Filter closed by clicking overlay";
+            });
+            
+            // Apply and reset buttons
+            document.querySelector('.apply-btn').addEventListener('click', function() {
+                hideFilterPage();
+                statusMessage.textContent = "Filters applied successfully!";
+            });
+            
+            document.querySelector('.reset-btn').addEventListener('click', function() {
+                document.querySelectorAll('.filter-option').forEach(opt => {
+                    opt.style.background = '#f8f9fa';
+                    opt.style.borderColor = 'transparent';
+                });
+                statusMessage.textContent = "Filters reset successfully";
+            });
+            
+            // Add interaction to filter options
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('.filter-option')) {
+                    const option = e.target.closest('.filter-option');
+                    option.style.background = '#d1ecf1';
+                    option.style.borderColor = '#3498db';
+                    statusMessage.textContent = `Selected: ${option.textContent.trim()}`;
+                }
+            });
+            
+            // Function to show filter page
+            function showFilterPage(filterType) {
+                // Update title based on filter
+                const titles = {
+                    'low-fat-meat': 'Low-Fat Meat Filters',
+                    'sale-of-the-month': 'Monthly Sale Filters',
+                    'fresh-fruit': 'Fresh Fruit Filters'
+                };
+                
+                filterTitle.textContent = titles[filterType] || 'Filter Products';
+                
+                // Populate filter options
+                filterOptions.innerHTML = '';
+                const options = filterData[filterType] || [];
+                
+                options.forEach(option => {
+                    const optionElement = document.createElement('div');
+                    optionElement.className = 'filter-option';
+                    optionElement.innerHTML = `
+                        <i class="fas ${option.icon}"></i>
+                        <div>${option.text}</div>
+                    `;
+                    filterOptions.appendChild(optionElement);
+                });
+                
+                // Show filter page and overlay
+                filterPage.classList.add('active');
+                overlay.classList.add('active');
+                
+                // Prevent scrolling on body
+                document.body.style.overflow = 'hidden';
+            }
+            
+            // Function to hide filter page
+            function hideFilterPage() {
+                filterPage.classList.remove('active');
+                overlay.classList.remove('active');
+                
+                // Restore scrolling on body
+                document.body.style.overflow = '';
+            }
+            
+            // Timer for the second banner
+            function updateTimer() {
+                const minuteElement = document.getElementById('minute');
+                const secondElement = document.getElementById('second');
+                
+                if (minuteElement && secondElement) {
+                    let minutes = parseInt(minuteElement.textContent);
+                    let seconds = parseInt(secondElement.textContent);
+                    
+                    if (seconds === 0) {
+                        if (minutes === 0) {
+                            // Timer completed
+                            return;
+                        }
+                        minutes--;
+                        seconds = 59;
+                    } else {
+                        seconds--;
+                    }
+                    
+                    minuteElement.textContent = minutes.toString().padStart(2, '0');
+                    secondElement.textContent = seconds.toString().padStart(2, '0');
+                }
+            }
+            
+            // Initialize timer only if elements exist
+            if (document.getElementById('minute') && document.getElementById('second')) {
+                setInterval(updateTimer, 1000);
+                statusMessage.textContent += " | Timer activated";
+            }
+        });

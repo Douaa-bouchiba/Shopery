@@ -702,7 +702,7 @@
     </div>
 
     <div class="all-banners">
-        <div class="first-banner">
+        <div class="first-banner" data-category="sale-of-the-month">
             <svg width="424" height="536" viewBox="0 0 424 536" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect width="424" height="536" rx="8" fill="url(#pattern0_2870_206)"/>
 <defs>
@@ -733,12 +733,12 @@
         <span class="label">SECS</span>
         </div>
     </div>
-    <a href="#" class="shop-now" id="shop-now">Shop Now</a>
+    <button class="shop-now" data-filter="sale-of-the-month">Shop Now</button>
     
 </div>
 
         </div>
-        <div class="second-banner">
+        <div class="second-banner" data-category="low-fat-meat">
             <svg width="424" height="536" viewBox="0 0 424 536" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect width="424" height="536" rx="8" fill="url(#pattern0_2870_2207)"/>
 <defs>
@@ -751,11 +751,11 @@
 <div class="banner-text">
     <h4>85% Fat Free</h4>
     <h1>Low-Fat Meat</h1>
-    <h4>Started at <span>$79.99</span></h4>
-    <a href="#" class="shop-now" id="shop-now">Shop Now</a>
+    <h4>Started at <span class="second-banner-promotion">$79.99</span></h4>
+    <button class="shop-now" data-filter="low-fat-meat">Shop Now</button>
 </div>
         </div>
-        <div class="third-banner">
+        <div class="third-banner" data-category="fresh-fruit">
             <svg width="424" height="536" viewBox="0 0 424 536" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect width="424" height="536" rx="8" fill="url(#pattern0_2870_767)"/>
 <defs>
@@ -768,11 +768,70 @@
 <div class="banner-text">
     <h4>Summer Sale</h4>
     <h1>100% Fresh Fruit</h1>
-    <h4>Up to <span> 64% OFF </span> </h4>
-    <a href="#" class="shop-now" id="shop-now">Shop Now</a>
+    <h4>Up to <span class="last-banner-promotion"> 64% OFF </span> </h4>
+    <button class="shop-now" data-filter="fresh-fruit">Shop Now</button>
 </div>
         </div>
     </div>
+     <div class="filter-title">
+            Click any "Shop Now" button to view filter options without leaving this page
+        </div>
+        
+        <div class="status-panel">
+            <h3>System Status</h3>
+            <div id="status-message">All systems operational. Click a banner button to start!</div>
+        </div>
+    </div>
+    
+    <!-- Filter Page Overlay -->
+    <div class="overlay" id="overlay"></div>
+    
+    <!-- Filter Page -->
+    <div class="filter-page" id="filterPage">
+        <div class="filter-header">
+            <h2 id="filterTitle">Filter Products</h2>
+            <button class="close-filter" id="closeFilter"><i class="fas fa-times"></i></button>
+        </div>
+        
+        <div class="filter-content">
+            <h3>Filter by Category</h3>
+            <div class="filter-options" id="filterOptions">
+                <img src="assets/Product Image.png">
+                <!-- Options will be populated by JavaScript -->
+            </div>
+            
+            <h3>Filter by Price</h3>
+            <div class="filter-options">
+                <div class="filter-option">
+                    <i class="fas fa-dollar-sign"></i>
+                    <div>Under $50</div>
+                </div>
+                <div class="filter-option">
+                    <i class="fas fa-dollar-sign"></i>
+                    <div>$50 - $100</div>
+                </div>
+                <div class="filter-option">
+                    <i class="fas fa-dollar-sign"></i>
+                    <div>$100 - $200</div>
+                </div>
+                <div class="filter-option">
+                    <i class="fas fa-dollar-sign"></i>
+                    <div>Max $1500</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="filter-actions">
+            <button class="filter-btn reset-btn">Reset Filters</button>
+            <button class="filter-btn apply-btn">Apply Filters</button>
+        </div>
+    </div>
+
+    <main>
+        <div>
+            <img src="assets/Image.png" alt="fresh green apples" style="width:100%; height:auto; border-radius:4px; margin-top:10px;">
+        </div>
+    </main>
 <script src="/page/router.js"></script>
 </body>
 </html>
