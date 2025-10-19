@@ -201,156 +201,222 @@ countdownTimer();
 const timerInterval = setInterval(countdownTimer, 1000);
 
 // banner's button functionality //
-document.addEventListener('DOMContentLoaded', function() {
-            const statusMessage = document.getElementById('status-message');
-            
-            // Update status message
-            statusMessage.textContent = "Document loaded. Ready for interaction!";
-            
-            // Get all necessary elements
-            const shopButtons = document.querySelectorAll('.shop-now');
-            const filterPage = document.getElementById('filterPage');
-            const overlay = document.getElementById('overlay');
-            const closeFilter = document.getElementById('closeFilter');
-            const filterTitle = document.getElementById('filterTitle');
-            const filterOptions = document.getElementById('filterOptions');
-            
-            // Define filter options for each banner
-            const filterData = {
-                'low-fat-meat': [
-                    { icon: 'fa-drumstick-bite', text: 'Chicken' },
-                    { icon: 'fa-cow', text: 'Beef' },
-                    { icon: 'fa-piggy-bank', text: 'Pork' },
-                    { icon: 'fa-turkey', text: 'Turkey' }
-                ],
-                'sale-of-the-month': [
-                    { icon: 'fa-fire', text: 'Hot Deals' },
-                    { icon: 'fa-percent', text: 'Discounted' },
-                    { icon: 'fa-star', text: 'Top Rated' },
-                    { icon: 'fa-bolt', text: 'Limited Stock' }
-                ],
-                'fresh-fruit': [
-                    { icon: 'fa-apple-alt', text: 'Apples' },
-                    { icon: 'fa-lemon', text: 'Citrus' },
-                    { icon: 'fa-seedling', text: 'Berries' },
-                    { icon: 'fa-pagelines', text: 'Tropical' }
-                ]
-            };
-            
-            // Add click event to each shop button
-            shopButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const filterType = this.getAttribute('data-filter');
-                    statusMessage.textContent = `Opening filter for: ${filterType.replace(/-/g, ' ')}`;
-                    showFilterPage(filterType);
-                });
-            });
-            
-            // Close filter events
-            closeFilter.addEventListener('click', function() {
-                hideFilterPage();
-                statusMessage.textContent = "Filter closed successfully";
-            });
-            
-            overlay.addEventListener('click', function() {
-                hideFilterPage();
-                statusMessage.textContent = "Filter closed by clicking overlay";
-            });
-            
-            // Apply and reset buttons
-            document.querySelector('.apply-btn').addEventListener('click', function() {
-                hideFilterPage();
-                statusMessage.textContent = "Filters applied successfully!";
-            });
-            
-            document.querySelector('.reset-btn').addEventListener('click', function() {
-                document.querySelectorAll('.filter-option').forEach(opt => {
-                    opt.style.background = '#f8f9fa';
-                    opt.style.borderColor = 'transparent';
-                });
-                statusMessage.textContent = "Filters reset successfully";
-            });
-            
-            // Add interaction to filter options
-            document.addEventListener('click', function(e) {
-                if (e.target.closest('.filter-option')) {
-                    const option = e.target.closest('.filter-option');
-                    option.style.background = '#d1ecf1';
-                    option.style.borderColor = '#3498db';
-                    statusMessage.textContent = `Selected: ${option.textContent.trim()}`;
-                }
-            });
-            
-            // Function to show filter page
-            function showFilterPage(filterType) {
-                // Update title based on filter
-                const titles = {
-                    'low-fat-meat': 'Low-Fat Meat Filters',
-                    'sale-of-the-month': 'Monthly Sale Filters',
-                    'fresh-fruit': 'Fresh Fruit Filters'
-                };
-                
-                filterTitle.textContent = titles[filterType] || 'Filter Products';
-                
-                // Populate filter options
-                filterOptions.innerHTML = '';
-                const options = filterData[filterType] || [];
-                
-                options.forEach(option => {
-                    const optionElement = document.createElement('div');
-                    optionElement.className = 'filter-option';
-                    optionElement.innerHTML = `
-                        <i class="fas ${option.icon}"></i>
-                        <div>${option.text}</div>
-                    `;
-                    filterOptions.appendChild(optionElement);
-                });
-                
-                // Show filter page and overlay
-                filterPage.classList.add('active');
-                overlay.classList.add('active');
-                
-                // Prevent scrolling on body
-                document.body.style.overflow = 'hidden';
-            }
-            
-            // Function to hide filter page
-            function hideFilterPage() {
-                filterPage.classList.remove('active');
-                overlay.classList.remove('active');
-                
-                // Restore scrolling on body
-                document.body.style.overflow = '';
-            }
-            
-            // Timer for the second banner
-            function updateTimer() {
-                const minuteElement = document.getElementById('minute');
-                const secondElement = document.getElementById('second');
-                
-                if (minuteElement && secondElement) {
-                    let minutes = parseInt(minuteElement.textContent);
-                    let seconds = parseInt(secondElement.textContent);
-                    
-                    if (seconds === 0) {
-                        if (minutes === 0) {
-                            // Timer completed
-                            return;
-                        }
-                        minutes--;
-                        seconds = 59;
+document.addEventListener('DOMContentLoaded', function(){ 
+const products = {
+    "sale-of-the-month": [
+        {id: 1, name: "Red Chili", price: "$14,99", category: "sale-of-the-month", imageUrl: "assets/potato.png",},
+        {id: 2, name: "Corn", price: "$14,99", category: "sale-of-the-month", imageUrl: "assets/corn.png",},
+        {id: 3, name: "Chinese Cabage", price: "$14,99", category: "sale-of-the-month", imageUrl: "assets/chinese cabage.png",},
+        {id: 4, name: "Eggplant", price: "$14,99", category: "sale-of-the-month", imageUrl: "assets/Eggplant.png",},
+        {id: 5, name: "Fresh Cauliflower", price: "$14,99", category: "sale-of-the-month", imageUrl: "assets/Fresh Cauliflower.png",},
+        {id: 6, name: "Tomato", price: "$14,99", category: "sale-of-the-month", imageUrl: "assets/tomato.png",},
+    ],
+    "low-fat-meat": [ 
+        {id: 1, name: "Chicken Fingers", price: "$14,99", category: "low-fat-meat", imageUrl: "assets/Chicken finger.jpeg",},
+        {id: 2, name: "Chicken Wings", price: "$14,99", category: "low-fat-meat", imageUrl: "assets/Chicken Wings.jpeg",},
+        {id: 3, name: "Chicken Thighs", price: "$14,99", category: "low-fat-meat", imageUrl: "assets/chicken thighs.jpeg",},
+        {id: 4, name: "Shrimps", price: "$14,99", category: "low-fat-meat", imageUrl: "assets/shrimps.jpeg",},
+        {id: 5, name: "Red Porgy", price: "$14,99", category: "low-fat-meat", imageUrl: "assets/Red porgy.jpeg",},
+        {id: 6, name: "Fish", price: "$14,99", category: "low-fat-meat", imageUrl: "assets/fish.jpeg",},
+        {id: 7, name: "Salmon", price: "$14,99", category: "low-fat-meat", imageUrl: "assets/salmon.jpeg",},
+        {id: 8, name: "Eggs", price: "$14,99", category: "low-fat-meat", imageUrl: "assets/eggs.jpeg",},
+        {id: 9, name: "A Whole Chicken", price: "$14,99", category: "low-fat-meat", imageUrl: "assets/a whole chicken.jpeg",},
+    ],
+    "fresh-fruit": [
+        {id: 1, name: "Lemon", price: "$14.99", category: "fresh-fruit", imageUrl: "assets/lemon.jpeg",},
+        {id: 2, name: "Apple", price: "$14.99", category: "fresh-fruit", imageUrl: "assets/apple.jpeg"},
+        {id: 3, name: "Banana", price: "$14.99", category: "fresh-fruit", imageUrl: "assets/banana.jpeg"},
+        {id: 4, name: "Ananas", price: "$14.99", category: "fresh-fruit", imageUrl: "assets/ananas.jpeg"},
+        {id: 5, name: "Grapes", price: "$14.99", category: "fresh-fruit", imageUrl: "assets/grapes.jpeg"},
+        {id: 6, name: "kiwis", price: "$14.99", category: "fresh-fruit", imageUrl: "assets/kiwis.jpeg"},
+        {id: 7, name: "Cherries", price: "$14.99", category: "fresh-fruit", imageUrl: "assets/cherries.jpeg"},
+        {id: 8, name: "Watermelon", price: "$14.99", category: "fresh-fruit", imageUrl: "assets/watermelon.jpeg"},
+        {id: 9, name: "Orange", price: "$14.99", category: "fresh-fruit", imageUrl: "assets/orange.jpeg"},
+        {id: 10, name: "Peach", price: "$14.99", category: "fresh-fruit", imageUrl:  "assets/peach.jpeg"},
+    ]
+};
+
+  function checkImageExists(imageUrl, callback) {
+            const img = new Image();
+            img.onload = function() { callback(true); };
+            img.onerror = function() { callback(false); };
+            img.src = imageUrl;
+        }
+
+        // Test your image paths
+        console.log("Testing image paths...");
+        for (const category in products) {
+            products[category].forEach(product => {
+                checkImageExists(product.imageUrl, function(exists) {
+                    if (!exists) {
+                        console.error(`Image not found: ${product.imageUrl}`);
                     } else {
-                        seconds--;
+                        console.log(`Image found: ${product.imageUrl}`);
                     }
-                    
-                    minuteElement.textContent = minutes.toString().padStart(2, '0');
-                    secondElement.textContent = seconds.toString().padStart(2, '0');
-                }
+                });
+            });
+        }
+    const bannersContainer = document.querySelector('.all-banners');
+    const filterPage = document.querySelector('#filter-page');
+    const backButton = document.querySelector('.back-button');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const shopNowButtons = document.querySelectorAll('.shop-now');
+    const productGrid = document.querySelector('#product-grid');
+    const filterTitle = document.querySelector('#filter-title');
+    
+    // Initialize state
+        
+       if (!bannersContainer || !filterPage || !backButton || !productGrid || !filterTitle) {
+                console.error("One or more required elements are missing from the DOM");
+                return;
             }
             
-            // Initialize timer only if elements exist
-            if (document.getElementById('minute') && document.getElementById('second')) {
-                setInterval(updateTimer, 1000);
-                statusMessage.textContent += " | Timer activated";
+            // Initialize state
+            let cartCount = 0;
+            let currentFilter = "all";
+            
+            // Function to render products
+            function renderProducts(filter = "all") {
+                productGrid.innerHTML = '';
+                
+                let filteredProducts = [];
+                
+                if (filter === "all") {
+                    // Combine all products
+                    for (const category in products) {
+                        filteredProducts = filteredProducts.concat(products[category]);
+                    }
+                } else {
+                    filteredProducts = products[filter] || [];
+                }
+                
+                if (filteredProducts.length === 0) {
+                    productGrid.innerHTML = `
+                        <div class="empty-state" style="grid-column:1/-1;text-align:center;padding:40px;">
+                            <i class="fas fa-search" style="font-size:60px;color:#e0e0e0;margin-bottom:20px;"></i>
+                            <h3 style="font-size:24px;margin-bottom:10px;color:#616161;">No products found</h3>
+                            <p style="color:#9e9e9e;max-width:500px;margin:0 auto;">
+                                Try selecting a different category to find what you're looking for.
+                            </p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+               filteredProducts.forEach((product) => {
+      const productCard = document.createElement("div");
+      productCard.classList.add("product-card");
+      productCard.innerHTML = `
+                        <img class="img-url" src="${product.imageUrl}" alt="${product.name}"/>
+                        <div class="product-info">
+                            <span class="product-category">${product.category}</span>
+                            <h3 class="product-name">${product.name}</h3>
+                            <div class="product-price">${product.price}</div>
+                            <div class="cart-container">
+                                <button class="add-to-cart" data-id="${product.id}">
+                                    <i class="fas fa-shopping-cart"></i> Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                        
+                    `;
+      productGrid.appendChild(productCard);
+    });
+
+    
+                // Add event listeners to add-to-cart buttons
+                document.querySelectorAll('.add-to-cart').forEach(button => {
+                    button.addEventListener('click', () => {
+                        cartItems++;
+                        if (cartCount) cartCount.textContent = cartItems;
+                        button.innerHTML = '<i class="fas fa-check"></i> Added!';
+                        button.style.backgroundColor = '#388e3c';
+                        
+                        setTimeout(() => {
+                            button.innerHTML = '<i class="fas fa-shopping-cart"></i> Add to Cart';
+                            button.style.backgroundColor = '#4caf50';
+                        }, 2000);
+                    });
+                });
             }
+            
+            // Function to set active filter button
+            function setActiveFilter(button) {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+            }
+            
+            // Event listeners for shop now buttons
+            if (shopNowButtons.length > 0) {
+                shopNowButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const filter = button.dataset.filter;
+                        
+                        // Hide banners, show filter page
+                        bannersContainer.style.display = 'none';
+                        filterPage.style.display = 'block';
+                        
+                        // Set the corresponding filter as active
+                        const targetFilterBtn = document.querySelector(`.filter-btn[data-filter="${filter}"]`);
+                        if (targetFilterBtn) {
+                            setActiveFilter(targetFilterBtn);
+                        }
+                        
+                        // Set the filter title
+                        const bannerTitle = button.parentElement.querySelector('h4').textContent;
+                        filterTitle.textContent = "Filter Products - " + bannerTitle;
+                        
+                        // Render products for this filter
+                        currentFilter = filter;
+                        renderProducts(filter);
+                    });
+                });
+            } else {
+                console.warn("No shop now buttons found");
+            }
+            
+            // Event listeners for filter buttons
+            if (filterButtons.length > 0) {
+                filterButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const filter = button.dataset.filter;
+                        setActiveFilter(button);
+                        currentFilter = filter;
+                        renderProducts(filter);
+                        
+                        // Update filter title
+                        if (filter === "all") {
+                            filterTitle.textContent = "Filter Products - All Products";
+                        } else {
+                            filterTitle.textContent = "Filter Products - " + button.textContent;
+                        }
+                    });
+                });
+            } else {
+                console.warn("No filter buttons found");
+            }
+            
+            // Back button event listener
+            backButton.addEventListener('click', () => {
+                filterPage.style.display = 'none';
+                bannersContainer.style.display = 'flex';
+            });
+            
+            // Initialize the page
+             if (filterPage.style.display !== 'block') {
+        renderProducts('all');
+    }
         });
+
+
+
+// Handle image loading errors
+function fpHandleImageError(img) {
+    const loadingElement = img.previousElementSibling;
+    if (loadingElement && loadingElement.classList.contains('fp-image-loading')) {
+        loadingElement.innerHTML = '<span>Image not available</span>';
+        loadingElement.classList.add('fp-image-error');
+    }
+    img.style.display = 'none';
+    console.error(`Image failed to load: ${img.src}`);
+}
