@@ -420,3 +420,63 @@ function fpHandleImageError(img) {
     img.style.display = 'none';
     console.error(`Image failed to load: ${img.src}`);
 }
+
+//the discount banner//
+document.addEventListener('DOMContentLoaded', function(){
+
+
+  function checkImageExists(Url, productName) {
+    const img = new Image();
+    img.onload = function() { 
+    console.log(`success: Image ${productName} for product ${Url}found `);
+    };
+    img.onerror = function() {
+        console.log(`error: Image ${productName} for product ${Url} missing`);
+    };
+img.src = Url;
+  }
+    const special = { 
+    "summer-sale-37%-off": [
+        {id: 1, name: "Onion", price: "$14,99", category: "summer-sale-37%-off", imageUrl: "assets/onion.jpeg",},
+        {id: 2, name: "Avocadp", price: "$14,99", category: "summer-sale-37%-off", imageUrl: "assets/avocado.jpeg",},
+        {id: 3, name: "Green Pepper", price: "$14,99", category: "summer-sale-37%-off", imageUrl: "assets/greenpepper.jpeg",},
+        {id: 4, name: "Caroot", price: "$14,99", category: "summer-sale-37%-off", imageUrl: "assets/caroot.jpeg",},
+        {id: 5, name: "Brocoli", price: "$14,99", category: "summer-sale-37%-off", imageUrl: "assets/brocoli.jpeg",},
+        {id: 6, name: "Cucumber", price: "$14,99", category: "summer-sale-37%-off", imageUrl: "assets/cucomber.jpeg",},
+    ]
+    
+};
+ const summerSaleProducts = special["summer-sale-37%-off"];
+
+ summerSaleProducts.forEach((product, index) =>
+{
+    checkImageExists(product.imageUrl, function(exists)
+{
+    console.log(`product${index + 1} (${product.name}) image exists: ${exists})`);
+});
+});
+ 
+
+const textF = document.querySelector("#textF");
+if (textF) {
+    textF.addEventListener("click", () => {
+        window.location.href = "summer sale.html";
+        console.log("Navigating to summer sale page...");
+            });    
+}else{
+console.log("Button with ID 'textF' not found!");
+    }
+
+});
+ 
+ document.addEventListener('DOMContentLoaded', function() { 
+    const btnhp = document.querySelector("#btnhp");
+    if (btnhp) {
+        btnhp.addEventListener("click",() => {
+            window.location.href = "index.html";
+            console.log("Navigating to home page...");
+        });
+    }else{
+        console.log("Button with ID btnhp not found!");
+    };
+ });

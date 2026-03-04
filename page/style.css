@@ -239,6 +239,32 @@ bottom: 9px;
     font-size: 14px;
     font-weight: 500;
 }
+@media (max-width: 768px){
+.container{
+    width: 50%;
+    font-size: 0.80rem;
+    line-height: 1.4rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
+    flex-wrap: nowrap;
+}
+.container2{
+    flex-wrap: nowrap;
+    font-size: 0.90rem;
+    justify-content: flex-end;
+}
+.one{
+    font-size: 0.90rem;
+}
+.two{
+    
+}
+} 
+    
+
 .call{
     display: flex;
     position: relative;
@@ -1181,7 +1207,57 @@ padding-left: 12px;
     
 }
 
-
+.ff-banner{
+    position: relative;
+}
+.honey-pot{
+    padding-top: 60px;
+    padding-left: 115px;
+    width: 200%;
+    max-width: 1000px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    overflow: hidden;
     
-   
+}
+.text-b{
+    position: absolute;
+top: 20%;
+left: 45%;
+overflow: visible;
+}
+.text-c{
+    font-weight: 500px;
+    color: rgba(255, 255, 255, 1);
+    font-size: 16px;
+}
+.text-d{
+    color: rgba(255, 255, 255, 1);
+font-size: 500;
+font-weight: 56px;
+}
+.text-a{
+    color: #e7762b;
+}
+.text-e{
+    color: gray;
+}
+.text-f{
+    border-radius: 43px;
+    width: 192px;
+    height: 51px;
+    font-weight: 600;
+    padding: 10px;
+    border: none;
+    background: rgba(0, 178, 7, 1);
+    color: #e0e0e0;
+}
+.text-f  svg{
+    position: relative;
+    left: 10px;
+    top: 1px;
+}
+
+  
 
